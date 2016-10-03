@@ -1,0 +1,39 @@
+---
+title: smile
+layout: default
+---
+<script src="https://d3js.org/d3.v4.min.js"> </script>
+
+
+
+<div id="Button">
+    <input name="Changesmile"
+                type="button"
+                value="Smile!"
+</div>
+
+
+
+
+  <svg height="400" width="1200">
+        <circle id="yellowcircle" cx="100" cy="100" r="100" fill="yellow"/>
+        <circle id="blackcircle" cx="60" cy="60" r="20" fill="black"/>
+        <circle id="blackcircle" cx="140" cy="60" r="20" fill="black"/>
+        <ellipse id="blackellipse" cx="100" cy="150" rx="40" ry="16" fill="black"/>
+        <ellipse id="yellowellipse" cx="100" cy="155" rx="40" ry="16" fill="yellow"/>
+
+      </svg>
+
+
+  <script>
+
+      var svg = d3.select "svg";
+      var ellipse = svg.select ("yellowellipse");
+      var button = d3.select("button");
+      button.on ("click", function()' {
+        yellowellipse.attr ("cy",146);
+
+      });
+
+
+    </script>

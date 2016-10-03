@@ -3,4 +3,38 @@ layout: default
 
 ---
 
-  <h1> hi i am testing </h1>
+    <html>
+      <head>
+        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+      </head>
+      <body>
+        <div id="smile">
+          <svg width="500" height="500">
+            <circle id="face" cx="100" cy="100" r="100" fill="yellow"/>
+            <circle id="eye1" cx="60" cy="60" r="20" fill="black"/>
+            <circle id="eye2" cx="140" cy="60" r="20" fill="black"/>
+            <ellipse id="smile" cx="100" cy="150" rx="40" ry="16" fill="black"/>
+            <ellipse id="yellowellipse" cx="100" cy="155" rx="40" ry="16" fill="yellow"/>
+
+
+          </svg>
+        </div>
+
+        <script src="https://d3js.org/d3.v4.min.js">
+
+
+
+        var smile = d3.select("#yellowellipse");
+            smile.attr("cy", 146);
+            smile.attr("cx",40)
+
+
+
+
+
+
+
+
+        </script>
+      </body>
+    </html>
