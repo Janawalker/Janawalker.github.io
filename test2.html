@@ -1,8 +1,3 @@
----
-title: smile
-layout: default
----
-
 <!DOCTYPE html>
 
 
@@ -17,11 +12,11 @@ layout: default
 <div>
 
     <svg width=500 height=500>
-      <circle id="face" cx="100" cy="100" r="100" fill="yellow" />
+      <circle id="face" cx="100" cy="100" r="100" fill="yellow"/>
       <circle id="eye1" cx="60" cy="60" r="20" fill="black"/>
       <circle id="eye2" cx="140" cy="60" r="20" fill="black"/>
-      <ellipse id="smile" cx="100" cy="140" rx="40" ry="16" fill="black"/>
-      <ellipse id="yellowellipse" cx="100" cy="145" rx="40" ry="16" fill="yellow"/>
+      <ellipse id="smile" cx="100" cy="150" rx="40" ry="16" fill="black"/>
+      <ellipse id="yellowellipse" cx="100" cy="155" rx="40" ry="16" fill="yellow"/>
 
 
   </svg>
@@ -32,7 +27,7 @@ layout: default
   var ellipse = svg.select("ellipse");
   var button = d3.select("button");
   button.on("click", function(){
-    ellipse.attr("cy",150);
+    ellipse.attr("cy",160);
 
   });
 
