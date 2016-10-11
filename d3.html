@@ -12,24 +12,61 @@ title: D3
 
 <script>
 
-var data = [23,54,34];
+      var randomData = function() {
+
+        var randomArray = [];
+        var num = Math.ceil(Math.random() * 5);
+        console.log("num",num);
+        for (var i = 0; i <num; i++) {
+          randomArray.push(Math.random() *50);
+        }
+
+        return randomArray;
+      }
 
 
-var svg = d3.select("body").append("svg")
-.attr("width",400);
+      var svg = d3.select("body").append("svg")
+        .attr("width",700)
+        .attr("height",500);
 
-var circles = svg.selectAll("circle")
-.data(data);
+      var draw = function(data) {
 
-circles.enter().append("circle")
-.attr("cx",function(d,i){
-  return 60 +(120 * i);
-})
+            var data = randomData();
+            console.log(data);
 
-.attr("cy",60)
-.attr("r",function(d){
-  return d;
+            var circles = svg.selectAll("circle")
+            .data(data);
 
-});
+          circles
+            .transition().duration(500)
+              .attr("fill", "green")
+              .transition().duration(500)
+              .attr("r",function(d) {
+                return d;
+            });
+
+          circles.enter().append("circle")
+            .transition().duration(500)
+              .attr("fill", "black")
+              .attr("cx",function(d,i){ return 60 +(120 * i)})
+              .attr("r",function(d){
+                return d;
+              })
+              .on
+              .attr("cy",60)
+              .attr("r",function(d){
+                return d;
+
+            });
+
+            circles.exit()
+              .transition().duration(500)
+                .attr("r",0)
+                .attr("fill","purple")
+                .remove()
+
+}
+
+  draw();
 
 </script>
