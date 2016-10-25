@@ -1,0 +1,53 @@
+---
+layout: default
+title: Jana Walker
+---
+
+<script>
+
+var draw = function(data) {
+
+  var svg = d3.select("svg");
+
+  var circles= svg.selectall ("circle").data(data);
+
+  var dataExtent = d3.max(data, function (d, i) {
+    return d.values.length;
+  }
+
+  console.log(dataExtent)
+  var radius = d3.scaleLinear()
+  .domain([0,max])
+
+
+
+  circles.enter().append)("circle")
+  .attr("cy", 60)
+  .attr("cx",function(d,i) {
+    return 60+ (120 * i);
+  }
+};
+
+.attr("r"),function(d,i) {}
+
+
+ds.csv("311_Noise_Complaints.csv"), function(error,data) {
+  console.log(error,data);
+
+  data = data.filter(function(d,i) {
+    return i != 0;
+  }
+});
+
+var nestedData = d3.nest()
+  .key(function(d, i) {
+      return d.gender;
+  })
+  .entries(data);
+
+  nestedData = nestedData.filter(function (d,i) {
+    return d.key !="";
+  });
+
+  draw(nested.Data)
+</script>
