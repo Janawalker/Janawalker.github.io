@@ -5,49 +5,58 @@ title: Jana Walker
 
 <script>
 
-var draw = function(data) {
+  var draw = function(data) {
 
-  var svg = d3.select("svg");
+    var svg = d3.select("svg");
 
-  var circles= svg.selectall ("circle").data(data);
+    var circles= svg.selectall("circle").data(data);
 
-  var dataExtent = d3.max(data, function (d, i) {
-    return d.values.length;
-  }
+    var dataExtent = d3.max(data, function(d, i) {
+      return d.values.length;
+    });
 
-  console.log(dataExtent)
-  var radius = d3.scaleLinear()
-  .domain([0,max])
-
-
-
-  circles.enter().append)("circle")
-  .attr("cy", 60)
-  .attr("cx",function(d,i) {
-    return 60+ (120 * i);
-  }
-};
-
-.attr("r"),function(d,i) {}
+    console.log(dataExtent)
+    var radius = d3.scaleLinear()
+      .domain([0,max])
 
 
-ds.csv("311_Noise_Complaints.csv"), function(error,data) {
-  console.log(error,data);
 
-  data = data.filter(function(d,i) {
-    return i != 0;
-  }
+    circles.enter().append("circle")
+      .attr("cy", 60)
+      .attr("cx",function(d,i) {
+        return 60+ (120 * i);
+      });
+
+      draw.nested(data)
+  };
+
+
+  d3.csv("311_Noise_Complaints.csv", function(error,data) {
+    console.log(error,data);
+
+    var borough=d3.nest()
+      .key(function(d){
+        return d.Borough;
+      })
+      .entries(data);
+
+    var city=d3.nest()
+      .key(function(d){
+        return d.City;
+      })
+      .entries(data);
+
+      var time=d3.nest()
+        .key(function(d){
+          return d.CreatedDate;
+        })
+        .entries(data);
+
+
+    console.log(borough);
+    console.log(city);
+    console.log(time);
+
 });
 
-var nestedData = d3.nest()
-  .key(function(d, i) {
-      return d.gender;
-  })
-  .entries(data);
-
-  nestedData = nestedData.filter(function (d,i) {
-    return d.key !="";
-  });
-
-  draw(nested.Data)
 </script>
