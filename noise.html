@@ -6,6 +6,16 @@ title: NYC Parties
 <html>
 <body>
 
+  <div style="width: 2000px; height: 1000px;" />
+
+  <svg style="position:fixed;top:10px" id="map" width="2000" height="1000px"><rect width="100%" height="100%" fill="none"/>
+
+    <rect x="500px" y="20" height="550" width="600px" stroke="white" />
+
+
+  </svg>
+
+
   <label for="slider">Time</label>
 <input type="range" id="slider" />
 <input type="text" id="textBox" />
@@ -14,14 +24,14 @@ title: NYC Parties
 
 <script>
 
-  var globaldata = [];
+  var globalData =  [];
+  var date =
 
   var draw = function(data, time) {
 
-
     var brook = data[0];
 
-    console.log(date, brook[ time + " [date" + time + "]" ]);
+    console.logs(date, brook[ time + " [date" + time + "]" ]);
 
 
     var values = date.map(function(y) {
@@ -87,7 +97,6 @@ title: NYC Parties
       }
     }
 
-    // we'll use this to set the default value of the year slider
     var defaultValue = d3.min(date);
 
 
