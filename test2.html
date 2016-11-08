@@ -1,40 +1,32 @@
+
+
 <!DOCTYPE html>
 
 
-  <script src="https://d3js.org/d3.v4.min.js">
 
-<html>
-<body>
-  <div class="button" id="button">
-    <button type="button">Smile!</click>
-</div>
+  <script>
 
-<div>
+  var svg = d3.select("body")
+            .append("svg")
+            .attr("width", 100)
+            .attr("height", 500);
 
-    <svg width=500 height=500>
-      <circle id="face" cx="100" cy="100" r="100" fill="yellow"/>
-      <circle id="eye1" cx="60" cy="60" r="20" fill="black"/>
-      <circle id="eye2" cx="140" cy="60" r="20" fill="black"/>
-      <ellipse id="smile" cx="100" cy="150" rx="40" ry="16" fill="black"/>
-      <ellipse id="yellowellipse" cx="100" cy="155" rx="40" ry="16" fill="yellow"/>
+ var dataset=d3.nest()
+     .key(function(d){
+       return d.CreatedDate;
+     })
+     .entries(data);
 
-
-  </svg>
-</div>
-<script>
-
-  var svg = d3.select("svg");
-  var ellipse = svg.select("ellipse");
-  var button = d3.select("button");
-  button.on("click", function(){
-    ellipse.attr("cy",160);
-
-  });
+var w = 500;
+var h = 100
 
 
 
-
-</script>
-
-</body>
-</html>
+  svg.selectAll("rect")
+               .data(dataset)
+               .enter()
+               .append("rect")
+               .attr("x", 0)
+               .attr("y", 0)
+               .attr("width", 20)
+               .attr("height", 100);

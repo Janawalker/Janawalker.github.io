@@ -32,7 +32,6 @@ title: Jana Walker
 
 
   d3.csv("311_Noise_Complaints.csv", function(error,data) {
-    console.log(error,data);
 
     var borough=d3.nest()
       .key(function(d){
@@ -53,8 +52,7 @@ title: Jana Walker
         .entries(data);
 
 
-    console.log(borough);
-    console.log(city);
+
     console.log(time);
 
 });

@@ -6,130 +6,138 @@ title: Jana Walker
 <!DOCTYPE html>
 
 
-<div style="width: 2000px; height: 1000px;" />
-
-<svg style="position:fixed;top:10px" id="map" width="2000" height="1000px"><rect width="100%" height="100%" fill="none"/>
-
-  <rect x="500px" y="20" height="550" width="600px" stroke="white" />
-
-
-</svg>
-<html>
-<body>
-
-  <label for="slider">Time</label>
-<input type="range" id="slider" />
+  <label for="slider"><h1>NYC Noise Complaints NYE</h1><h2>1/31/15-1/1/16</h2></label>
+<input type="range" id="slider" min="1" max="24" value="1"/>
 <input type="text" id="textBox" />
+
 <br />
-<svg width="100%" height=600></svg>
 
 <script>
 
-  var globaldata = [];
+  var globalData = [];
+  var time =[];
 
-  var draw = function(data, time) {
+  var draw = function(hour) {
 
-
-    var brook = data[0];
-
-    console.log(date, brook[ time + " [date" + time + "]" ]);
-
-
-    var values = date.map(function(y) {
-      return brook[ y + " [HR" + y + "]" ];
+    var filteredData = globalData.filter(function(d) {
+      return new Date(d.CreatedDate).getHours() == hour;
+      // hourData.push(new Date(d.CreatedDate).getHours() == hour);
     });
 
-    var radius = d3.scaleLinear()
-      .domain(d3.extent(values))
-      .range([10, window.innerWidth / 4 - 10]);
 
-    var svg = d3.select("svg");
-    var circle = svg.selectAll("circle")
-      .data([brook]);
+    // var soundwave=d3.nest()
+    //   .key(function(d){
+    //     return d.CreatedDate;
+    //   })
+    //   .entries(globalData);
+    // time.push(soundwave);
+    // console.log(time);
 
-    var enter = circle.enter().append("circle");
-
-    circle.merge(enter)
-      .attr("cx", window.innerWidth / 4)
-      .attr("cy", window.innerWidth / 4)
-      .transition().duration(500)
-      .attr("fill", function(d) {
-
-        var num = brook[ date + " [date" + time + "]" ];
-        console.log(num);
-
-
-        if (isNaN(parseFloat(num))) {
-          return "#cccccc";
-        }
-        return "Purple";
-      })
-      .attr("r", function(d) {
-
-        var num = brook[ date + " [date" + time + "]" ];
-        if (isNaN(parseFloat(num))) {
-          return 30;
-        }
-        return radius(num);
-      });
-
+    var city = d3.nest()
+    .key(function(d){
+      return d.City;
+    })
+    .entries(filteredData);
+    // console.log(city)
   };
+
+
+
+
 
   d3.csv("311_Noise_Complaints.csv", function(error, data) {
 
-    data.forEach(function(d, i) {
 
-      for (var key in d) {
 
-        var num = parseFloat(d[key]);
 
-        if (!isNaN(num)) {
-          d[key] = num;
-        }
+    // var soundwave = d3.select("body").append("svg")
+    //   .attr("wight",500)
+    //   .attr("height", 500 )
+    //
+    //   var svg = d3.select("svg");
+    //   		var rect = svg.selectAll("rect").data(data);
+    //   		var enter = rect.enter().append("rect");
+    //
+    // rect.merge(enter)
+    //   .append("rect")
+    //   .attr("width",20)
+    //   .attr("height", function(d) {
+        // return soundwave
+    // })
+    // .attr("fill", "white");
 
-      }
-    });
 
-    for (var key in data[0]) {
 
-      var num = parseFloat(key.split(" ")[0]);
-      if (!isNaN(num)) {
-        date.push(num);
-      }
-    }
 
-    var defaultValue = d3.min(date);
+    globalData= data;
 
 
     d3.select("#slider")
-      .attr("min", d3.min(date))
-      .attr("max", d3.max(date))
-      .attr("value", defaultValue)
       .on("input", function() {
 
 
-        var date = this.value;
+        var value = parseFloat(this.value);
+
+        if (value <= 12) value= value+"pm"
+        else value= value-12+"am"
+
+        d3.select("#textBox").node().value = value;
 
 
-        d3.select("#textBox").node().value = date;
-
-        draw(data, date);
+        draw(value);
 
       });
 
-    draw(data, defaultValue);
+    draw(1);
 
   });
 
-  var filteredData = globalData.filter(function(d) {
-    return new Date(d.CreatedDate).getHours() == hour;
-  });
+  var w = 130;
+  var h = 50;
+  var barPadding = 1;
 
-  var city = d3.nest()
-  .key(function(d){
-    return d.City;
-  })
-  .entries(filteredData);
+  var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+  var svg2 = d3.select("body")
+              .append("svg")
+              .attr("width", w)
+              .attr("height", h);
+
+
+var dataset = [6, 15, 9, 18, 13, 16, 19, 14, 11, 16, 17, 15, 22, 23, 22, 23, 23, 23, 35, 35, 52, 47, 50, 76, 30, 43,
+40, 118,123, 93, 76, 100, 74, 55, 54, 43, 27, 33, 15, 18,14, 12, 18, 7, 4, 8, 13, 1 ];
+
+      // var time=d3.nest()
+      //   .key(function(d){
+      //     return d.CreatedDate;
+      //   })
+      //   .entries(data);
+
+  svg.selectAll("rect")
+               .data(dataset)
+               .enter()
+               .append("rect")
+               .attr("x", function(d, i) {
+                  return i * (w / dataset.length);
+                  })
+                  .style("fill", function (d, i) {
+                  return "rgb(150, 250, "
+                  +d * 4 + ")";
+                 })
+               .attr("y", 0)
+               .attr("width", w / dataset.length - barPadding)
+               .attr("height", function(d) {
+                 return d/2.5 ;
+                   })
+                .attr("position", "fixed");
+
+
+
+
+
 </script>
 
 

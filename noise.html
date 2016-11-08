@@ -6,122 +6,60 @@ title: NYC Parties
 
 <h1> NYC Party Complaints New Years 2016 </h1>
 
-<html>
-<body>
 
-  <div style="width: 2000px; height: 1000px;" />
-
-  <svg style="position:fixed;top:10px" id="map" width="2000" height="1000px"><rect width="100%" height="100%" fill="none"/>
-
-    <rect x="500px" y="20" height="550" width="600px" stroke="white" />
-
-
-  </svg>
 
 
   <label for="slider">Time</label>
-<input type="range" id="slider" />
+<input type="range" id="slider" min="1" max="24" value="1"/>
 <input type="text" id="textBox" />
+
 <br />
-<svg width="100%" height=600> </svg>
+<svg width="100%" height=600></svg>
 
 <script>
 
-  var globalData =  [];
-  var date =
+  var globalData = [];
 
-  var draw = function(data, time) {
+  var draw = function(hour) {
 
-    var brook = data[0];
-
-    console.logs(date, brook[ time + " [date" + time + "]" ]);
-
-
-    var values = date.map(function(y) {
-      return brook[ y + " [HR" + y + "]" ];
+    var filteredData = globalData.filter(function(d) {
+      return new Date(d.CreatedDate).getHours() == hour;
     });
 
-    var radius = d3.scaleLinear()
-      .domain(d3.extent(values))
-      .range([10, window.innerWidth / 4 - 10]);
-
-    var svg = d3.select("svg");
-    var circle = svg.selectAll("circle")
-      .data([brook]);
-
-    var enter = circle.enter().append("circle");
-
-    circle.merge(enter)
-      .attr("cx", window.innerWidth / 4)
-      .attr("cy", window.innerWidth / 4)
-      .transition().duration(500)
-      .attr("fill", function(d) {
-
-        var num = brook[ date + " [date" + time + "]" ];
-        console.log(num);
-
-
-        if (isNaN(parseFloat(num))) {
-          return "#cccccc";
-        }
-        return "Purple";
-      })
-      .attr("r", function(d) {
-
-        var num = brook[ date + " [date" + time + "]" ];
-        if (isNaN(parseFloat(num))) {
-          return 30;
-        }
-        return radius(num);
-      });
+    var city = d3.nest()
+    .key(function(d){
+      return d.City;
+    })
+    .entries(filteredData);
 
   };
 
-  d3.csv("311_Noise_Complaints", function(error, data) {
+  d3.csv("311_Noise_Complaints.csv", function(error, data) {
 
-    data.forEach(function(d, i) {
+    globalData= data;
 
-      for (var key in d) {
 
-        var num = parseFloat(d[key]);
-
-        if (!isNaN(num)) {
-          d[key] = num;
-        }
-
-      }
-    });
-
-    for (var key in data[0]) {
-
-      var num = parseFloat(key.split(" ")[0]);
-      if (!isNaN(num)) {
-        date.push(num);
-      }
-    }
-
-    var defaultValue = d3.min(date);
 
 
     d3.select("#slider")
-      .attr("min", d3.min(date))
-      .attr("max", d3.max(date))
-      .attr("value", defaultValue)
       .on("input", function() {
 
 
-        var date = this.value;
+        var value = parseFloat(this.value);
+
+        if (value <= 13) value= value+11
+        else value= value-13
+
+        d3.select("#textBox").node().value = value;
 
 
-        d3.select("#textBox").node().value = date;
-
-        draw(data, date);
+        draw(value);
 
       });
 
-    draw(data, defaultValue);
+    draw(1);
 
-  });
+
 
 </script>
 
