@@ -6,13 +6,33 @@ title: Jana Walker
 <!DOCTYPE html>
 
 
-  <label for="slider"><h1>NYC Noise Complaints NYE</h1><h2>1/31/15-1/1/16</h2></label>
+
+
+
+
+  <label for="slider"><h1>NYC Noise Complaints NYE</h1><h2>12/31/15-1/1/16</h2></label>
 <input type="range" id="slider" min="1" max="24" value="1"/>
 <input type="text" id="textBox" />
 
 <br />
-
+<!-- <span class="tick" style="display:inline-block;width: 1px;text-align:left;margin-right:1px; margin-top=1px;"><h3>|</h3><br/><h3></h3></span> -->
+       <!-- <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;margin-top=1px;"><h3>|</h3><br/><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;margin-top=1px;"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;margin-top=1px;"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;margin-top=1px;"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;margin-top=1px"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;margin-top=1px">|<br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;;margin-top=1px"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;;margin-top=1px"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;;margin-top=1px"><h3>|</h3><br />1<h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;;margin-top=3px"><h3>|</h3><br /><h3></h3></span>
+       <span class="tick" style="display:inline-block;width: 1pxpx;text-align:center;margin-right: 1px;;margin-top=3px"><h3>|</h3><br /><h3></h3></span> -->
 <script>
+
+
+
+
+
 
   var globalData = [];
   var time =[];
@@ -79,6 +99,7 @@ title: Jana Walker
         var value = parseFloat(this.value);
 
         if (value <= 12) value= value+"pm"
+        // else if (value =24) value= value-12+"pm"
         else value= value-12+"am"
 
         d3.select("#textBox").node().value = value;
