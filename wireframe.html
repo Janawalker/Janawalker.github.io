@@ -3,12 +3,6 @@ layout: parties
 title: Jana Walker
 ---
 
-<!DOCTYPE html>
-
-
-
-
-
 
   <label for="slider"><h1>NYC Noise Complaints NYE</h1><h2>12/31/15-1/1/16</h2></label>
 <input type="range" id="slider" min="1" max="24" value="1"/>
@@ -28,23 +22,13 @@ title: Jana Walker
        <span class="tick" style="display:inline-block;width: 1px;text-align:center;margin-right: 1px;;margin-top=3px"><h3>|</h3><br /><h3></h3></span>
        <span class="tick" style="display:inline-block;width: 1pxpx;text-align:center;margin-right: 1px;;margin-top=3px"><h3>|</h3><br /><h3></h3></span> -->
 <script>
-
-
-
-
-
-
   var globalData = [];
   var time =[];
-
   var draw = function(hour) {
-
     var filteredData = globalData.filter(function(d) {
       return new Date(d.CreatedDate).getHours() == hour;
       // hourData.push(new Date(d.CreatedDate).getHours() == hour);
     });
-
-
     // var soundwave=d3.nest()
     //   .key(function(d){
     //     return d.CreatedDate;
@@ -52,7 +36,6 @@ title: Jana Walker
     //   .entries(globalData);
     // time.push(soundwave);
     // console.log(time);
-
     var city = d3.nest()
     .key(function(d){
       return d.City;
@@ -60,16 +43,7 @@ title: Jana Walker
     .entries(filteredData);
     // console.log(city)
   };
-
-
-
-
-
   d3.csv("311_Noise_Complaints.csv", function(error, data) {
-
-
-
-
     // var soundwave = d3.select("body").append("svg")
     //   .attr("wight",500)
     //   .attr("height", 500 )
@@ -85,58 +59,36 @@ title: Jana Walker
         // return soundwave
     // })
     // .attr("fill", "white");
-
-
-
-
     globalData= data;
-
-
     d3.select("#slider")
       .on("input", function() {
-
-
         var value = parseFloat(this.value);
-
         if (value <= 12) value= value+"pm"
         // else if (value =24) value= value-12+"pm"
         else value= value-12+"am"
-
         d3.select("#textBox").node().value = value;
-
-
         draw(value);
-
       });
-
     draw(1);
-
   });
-
   var w = 130;
   var h = 50;
   var barPadding = 1;
-
   var svg = d3.select("body")
             .append("svg")
             .attr("width", w)
             .attr("height", h);
-
   var svg2 = d3.select("body")
               .append("svg")
               .attr("width", w)
               .attr("height", h);
-
-
 var dataset = [6, 15, 9, 18, 13, 16, 19, 14, 11, 16, 17, 15, 22, 23, 22, 23, 23, 23, 35, 35, 52, 47, 50, 76, 30, 43,
 40, 118,123, 93, 76, 100, 74, 55, 54, 43, 27, 33, 15, 18,14, 12, 18, 7, 4, 8, 13, 1 ];
-
       // var time=d3.nest()
       //   .key(function(d){
       //     return d.CreatedDate;
       //   })
       //   .entries(data);
-
   svg.selectAll("rect")
                .data(dataset)
                .enter()
@@ -154,11 +106,6 @@ var dataset = [6, 15, 9, 18, 13, 16, 19, 14, 11, 16, 17, 15, 22, 23, 22, 23, 23,
                  return d/2.5 ;
                    })
                 .attr("position", "fixed");
-
-
-
-
-
 </script>
 
 
