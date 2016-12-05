@@ -4,6 +4,20 @@
 $main: purple;
 
 
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: #4c4c4c;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+
 body {
   background-color: black;
   font-family: Helvetica;
