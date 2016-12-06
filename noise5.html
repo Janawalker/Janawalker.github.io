@@ -2,8 +2,42 @@
 layout: parties
 title: Jana Walker
 ---
-
 <style>
+
+/*.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid black;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid #f00;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+
+  border-left: 60px solid green;
+}
+
+.arrow-left {
+padding-left: -10px;
+ height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid black;
+}*/
 
 input[type=range] {
   -webkit-appearance: none;
@@ -91,6 +125,44 @@ input[type=range]:focus::-ms-fill-upper {
   background: #white;
 }
 
+path:hover {
+stroke-width: 1px;
+opacity: .85;
+}
+
+#tooltip {
+    background-color: #000000;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: white;
+    display: none;
+    border-width: .2px;
+    padding:5px;
+    position: absolute;
+    top: 0;
+    width: 80px;
+    opacity: .75;
+
+  }
+
+  #borough-name{
+    font-family: 'Noto Sans', sans-serif;
+    font-style: bold;
+    font-size: 12px;
+    text-align: center;
+    color: #ffffff;
+
+
+
+
+  }
+  #borough-value {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 10px;
+    text-align: center;
+    color: #ffffff;
+
+  }
 
 
 
@@ -104,7 +176,7 @@ input[type=range]:focus::-ms-fill-upper {
   #textBox {
     color: white;
     font-size: 12px;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: "Noto Sans", sans-serif;
     padding-top: 10px;
     padding-left: 30px;
 
@@ -140,6 +212,12 @@ input[type=range]:focus::-ms-fill-upper {
 
 <br />
 
+<div id="tooltip" style="display: none; position: absolute;">
+  <div id="borough-name"></div>
+  <div id="borough-value"></div>
+  <div class="arrow-left"></div>
+
+</div>
 
 
 <script>
@@ -172,9 +250,28 @@ input[type=range]:focus::-ms-fill-upper {
 
   console.log(complaints);
   var colorScale = d3.scaleLinear()
-  .domain([0, 80]) // min and max number of complaints
-  .range(["#f7fcb9", "#31a354"]); // colors to change!
+  .domain([0, 79]) // min and max number of complaints
+  .range(["#f7fcb9", "#00f2fe"]); // colors to change!
+  d3.selectAll("path")
+  .attr("fill", function(d) {
+    var borough = d.properties.BoroName.toUpperCase();
+    return colorScale(complaints[borough]);
+  })
+  .on("mousemove", function(d) {
+    var borough = d.properties.BoroName;
+    var value = complaints[borough.toUpperCase()];
+    var mouse = d3.mouse(document.body);
+    d3.select("#tooltip")
+      .style("display", "block")
+      .style("top", mouse[1] + "px")
+      .style("left", mouse[0] + 20 + "px");
+    d3.select("#tooltip").select("#borough-name").text(borough);
+    d3.select("#tooltip").select("#borough-value").text("complaints:"+ " "+ value);
 
+  })
+  .on("mouseleave", function(d) {
+    d3.select("#tooltip").style("display", "none");
+  });
 
 d3.selectAll("path")
   .attr("fill", function(d) {
@@ -226,7 +323,7 @@ d3.selectAll("path")
    countries.enter().append("path")
      .attr("d", path)
      .attr("stroke", "#888")
-     .attr("stroke-width", 1)
+     .attr("stroke-width", .5)
      .attr("fill", function(d){
        return d.id == "076" ? "green" : "#ccc";
     //  .on("mouseover", function () {
@@ -290,7 +387,7 @@ d3.selectAll("path")
            return i * (w / soundwave.length);
          })
          .style("fill", function (d, i) {
-           return "rgb(150, 250, "+ d.values.length * 4 + ")";
+           return "rgb(100, 650, "+ d.values.length * 3 + ")";
          })
          .attr("y", function(d) {
            return h / 2 - heightScale(d.values.length) / 2;
