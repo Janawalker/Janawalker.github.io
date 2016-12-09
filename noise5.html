@@ -190,7 +190,7 @@ opacity: .85;
 
 
 
-<h1>NYC Noise Complaints NYE</h1>
+<h1>NYC Noise Complaints NYE 2016</h1>
 <h2>12/31/15-1/1/16</h2>
 
 <br>
@@ -353,6 +353,12 @@ d3.selectAll("path")
 
        globalData = data;
 
+       if(.getHours()){
+                     printThis += i + ":  " + "0" + "<br/>";
+                   }
+                   else {
+                     printThis += i + ":  " + .getHours() + "<br/>";
+                   }
 
        var soundwave = d3.nest()
          .key(function(d) {
