@@ -3,7 +3,6 @@ layout: parties
 title: Jana Walker
 ---
 <style>
-<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700" rel="stylesheet">
 
 /*.arrow-up {
   width: 0;
@@ -202,6 +201,7 @@ opacity: .85;
 <br>
 <br>
 
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700" rel="stylesheet">
 
 <div style= "position:fixed;top:230px;left:70px;z-index:10;">
 
@@ -391,7 +391,7 @@ d3.selectAll("path")
            return i * (w / soundwave.length);
          })
          .style("fill", function (d, i) {
-           return "rgb("d.values.length", "+ d.values.length * 2 + ", 0) ";
+           return "rgb( " + d.values.length * 2 + ", " + d.values.length * 2 + ", 0)";
 
          })
          .attr("y", function(d) {
