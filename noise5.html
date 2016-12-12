@@ -251,7 +251,7 @@ opacity: .85;
   console.log(complaints);
   var colorScale = d3.scaleLinear()
   .domain([0, 79]) // min and max number of complaints
-  .range(["#f7fcb9", "#00f2fe"]); // colors to change!
+  .range(["#000000", "#FFFF00"]); // colors to change!
   d3.selectAll("path")
   .attr("fill", function(d) {
     var borough = d.properties.BoroName.toUpperCase();
@@ -260,6 +260,8 @@ opacity: .85;
   .on("mousemove", function(d) {
     var borough = d.properties.BoroName;
     var value = complaints[borough.toUpperCase()];
+    if(!complaints[borough.toUpperCase()]) { value = "0";
+  };
     var mouse = d3.mouse(document.body);
     d3.select("#tooltip")
       .style("display", "block")
@@ -353,13 +355,6 @@ d3.selectAll("path")
 
        globalData = data;
 
-       if(.getHours()){
-                     printThis += i + ":  " + "0" + "<br/>";
-                   }
-                   else {
-                     printThis += i + ":  " + .getHours() + "<br/>";
-                   }
-
        var soundwave = d3.nest()
          .key(function(d) {
            return new Date(d.CreatedDate).getHours();
@@ -393,7 +388,8 @@ d3.selectAll("path")
            return i * (w / soundwave.length);
          })
          .style("fill", function (d, i) {
-           return "rgb(100, 650, "+ d.values.length * 3 + ")";
+           return "rgb(0, "+ d.values.length * 2 + ", 0) ";
+
          })
          .attr("y", function(d) {
            return h / 2 - heightScale(d.values.length) / 2;
