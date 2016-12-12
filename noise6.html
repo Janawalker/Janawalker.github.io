@@ -209,7 +209,7 @@ opacity: .85;
 
 <svg style= "position:fixed;top:80px;left:400px;"></svg>
 
-<svg style= "position:fixed;top:218.45px;left:70px" id="soundwave"></svg>
+<svg style= "position:absolute;top:218.45px;left:70px" id="soundwave"></svg>
 <div id="textBox"></div>
 
 <br />
@@ -253,7 +253,7 @@ opacity: .85;
   console.log(complaints);
   var colorScale = d3.scaleLinear()
   .domain([0, 79]) // min and max number of complaints
-  .range(["#000000", "#00FF00"]); // colors to change!
+  .range(["#000000", "#FFE400"]); // colors to change!
   d3.selectAll("path")
   .attr("fill", function(d) {
     var borough = d.properties.BoroName.toUpperCase();
@@ -390,7 +390,7 @@ d3.selectAll("path")
            return i * (w / soundwave.length);
          })
          .style("fill", function (d, i) {
-           return "rgb(0, "+ d.values.length * 2 + ", 0) ";
+           return "rgb("d.values.length", "+ d.values.length * 2 + ", 0) ";
 
          })
          .attr("y", function(d) {
