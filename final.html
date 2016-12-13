@@ -153,8 +153,6 @@ opacity: .85;
     color: #ffffff;
 
 
-
-
   }
   #borough-value {
     font-family: 'Noto Sans', sans-serif;
@@ -163,9 +161,6 @@ opacity: .85;
     color: #ffffff;
 
   }
-
-
-
 
   #slider {
     width: 268px;
@@ -228,9 +223,6 @@ opacity: .85;
 
 
 
-
-
-
   var globalData = [];
   var data =[];
 
@@ -241,16 +233,15 @@ opacity: .85;
     });
 
 
-
     var complaints = d3.nest()
-  .key(function(d){
-    return d.Borough;
+      .key(function(d){
+        return d.Borough;
   })
-  .entries(filteredData)
-  .reduce(function(obj, d) {
-    obj[d.key] = d.values.length;
-    return obj;
-  }, {});
+    .entries(filteredData)
+    .reduce(function(obj, d) {
+      obj[d.key] = d.values.length;
+      return obj;
+    }, {});
 
   console.log(complaints);
   var colorScale = d3.scaleLinear()
@@ -285,14 +276,6 @@ d3.selectAll("path")
     return colorScale(complaints[borough]);
   });
   };
-
-
-
-
-
-
-
-
 
   var width = 500, height = 500;
 
@@ -440,9 +423,7 @@ d3.selectAll("path")
 
 
 
-
 </script>
-
 
 </body>
 
