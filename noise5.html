@@ -380,27 +380,29 @@ d3.selectAll("path")
          .domain([0, extent[1]])
          .range([0, h])
 
-       hours.selectAll("rect")
-         .data(soundwave)
-         .enter()
-         .append("rect")
-         .transition()
-         .delay(250)
-         .attr("x", function(d, i) {
-           return i * (w / soundwave.length);
-         })
-         .style("fill", function (d, i) {
-           return "rgb(0, "+ d.values.length * 2 + ", 0) ";
+         var barScale = d3.scaleLinear()
+            .domain(extent) // min and max number of complaints
+            .range(["#000000", "#FFE400"]); // colors to change!
 
-         })
-         .attr("y", function(d) {
-           return h / 2 - heightScale(d.values.length) / 2;
-         })
-         .attr("width", w / soundwave.length - barPadding)
-         .attr("height", function(d) {
-           return heightScale(d.values.length);
-         });
-
+          hours.selectAll("rect")
+            .data(soundwave)
+            .enter()
+            .append("rect")
+            .transition()
+            .delay(250)
+            .attr("x", function(d, i) {
+              return i * (w / soundwave.length);
+            })
+            .style("fill", function (d, i) {
+              return barScale(d.values.length);
+            })
+            .attr("y", function(d) {
+              return h / 2 - heightScale(d.values.length) / 2;
+            })
+            .attr("width", w / soundwave.length - barPadding)
+            .attr("height", function(d) {
+              return heightScale(d.values.length);
+            });
 
        d3.select("#slider")
        .on("input", function() {

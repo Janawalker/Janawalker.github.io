@@ -205,6 +205,7 @@ opacity: .85;
 
 <div style= "position:fixed;top:230px;left:70px;z-index:10;">
 
+
 <input type="range" id="slider" min="1" max="24" value="1"/>
 </div>
 
@@ -254,7 +255,7 @@ opacity: .85;
   console.log(complaints);
   var colorScale = d3.scaleLinear()
   .domain([0, 79]) // min and max number of complaints
-  .range(["#000000", "#FFE400"]); // colors to change!
+  .range(["#00000E", "#FFE400"]); // colors to change!
   d3.selectAll("path")
   .attr("fill", function(d) {
     var borough = d.properties.BoroName.toUpperCase();
@@ -327,7 +328,7 @@ d3.selectAll("path")
    // country codes: https://en.wikipedia.org/wiki/ISO_3166-1_numeric
    countries.enter().append("path")
      .attr("d", path)
-     .attr("stroke", "#888")
+     .attr("stroke", "#474747")
      .attr("stroke-width", .5)
      .attr("fill", function(d){
        return d.id == "076" ? "green" : "#ccc";
@@ -404,7 +405,7 @@ d3.selectAll("path")
 
 
        d3.select("#slider")
-       .on("input", function() {
+       .on("input", function(d) {
 
          var value = parseFloat(this.value);
 
@@ -413,7 +414,7 @@ d3.selectAll("path")
          else if (value == 24) var time = value - 12 + "pm";
          else var time = value - 12 + "am";
 
-       d3.select("#textBox").html(time);
+         d3.select("#textBox").html(time );
 
        if (value <= 11) value = value + 12;
        else value = value - 12;
